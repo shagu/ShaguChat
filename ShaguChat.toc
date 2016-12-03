@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: |cff33ffccShagu|cffffffffChat
+## Author: Eric (Shagu) Mauser, 2016
+## Notes: Hides and highlights chat messages with specific keywords. Type /sc or /shaguchat for usage info.
+## Version: 1.0
+## SavedVariables: ShaguChat_Highlight, ShaguChat_Block
+ShaguChat.lua
