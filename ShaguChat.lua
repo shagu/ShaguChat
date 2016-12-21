@@ -43,35 +43,14 @@ SlashCmdList["SHAGUCHAT"] = function(message)
 
   -- add highlight entry
   if commandlist[1] == "hl" then
-    local addstring = ""
-    for i=2,10 do
-      if commandlist[i] and commandlist[i] ~= "" then
-        if addstring == "" then
-          addstring = commandlist[i]
-        else
-          addstring = addstring .. " " .. commandlist[i]
-        end
-      end
-    end
-
+    local addstring = table.concat(commandlist," ",2)
     if addstring == "" then return end
     table.insert(ShaguChat_Highlight, string.lower(addstring))
     DEFAULT_CHAT_FRAME:AddMessage("=> adding ".. addstring .." to your highlight list")
 
   -- add block entry
   elseif commandlist[1] == "bl" then
-
-    local addstring = ""
-    for i=2,10 do
-      if commandlist[i] and commandlist[i] ~= "" then
-        if addstring == "" then
-          addstring = commandlist[i]
-        else
-          addstring = addstring .. " " .. commandlist[i]
-        end
-      end
-    end
-
+    local addstring = table.concat(commandlist," ",2)
     if addstring == "" then return end
     table.insert(ShaguChat_Block, string.lower(addstring))
     DEFAULT_CHAT_FRAME:AddMessage("=> adding ".. addstring .. " to your block list")
