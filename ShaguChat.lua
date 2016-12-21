@@ -5,52 +5,82 @@ ShaguChat_ChatFrame_OnEvent = ChatFrame_OnEvent
 ShaguChat_OldMessage = ""
 
 function ChatFrame_OnEvent(event)
-	local hilight = "|cff33ffcc";
+  local hilight = "|cff33ffcc";
 
   if (event == "CHAT_MSG_CHANNEL" or
-      event == "CHAT_MSG_YELL" or
-      event == "CHAT_MSG_SAY" or
-      event == "CHAT_MSG_WHISPER") and arg2 and arg1 then
+    event == "CHAT_MSG_YELL" or
+    event == "CHAT_MSG_SAY" or
+    event == "CHAT_MSG_WHISPER") and arg2 and arg1 then
 
-	  for id, scan in pairs(ShaguChat_Highlight) do
-		  if strfind(string.lower(arg1), string.lower(scan)) then
+    for id, scan in pairs(ShaguChat_Highlight) do
+      if strfind(string.lower(arg1), string.lower(scan)) then
         arg1 = string.gsub(arg1, "|r", hilight)
-			  arg1 = hilight..arg1
-				if arg1 ~= ShaguChat_OldMessage then
-					ShaguChat_OldMessage = arg1
-        	UIErrorsFrame:AddMessage("|r" .. arg2 .. ": " .. hilight .. arg1)
-				end
-		  end
+        arg1 = hilight..arg1
+        if arg1 ~= ShaguChat_OldMessage then
+          ShaguChat_OldMessage = arg1
+          UIErrorsFrame:AddMessage("|r" .. arg2 .. ": " .. hilight .. arg1)
+        end
+      end
     end
 
-	  for id, scan in pairs(ShaguChat_Block) do
-		  if strfind(string.lower(arg1), string.lower(scan)) then
-			  return false
-		  end
+    for id, scan in pairs(ShaguChat_Block) do
+      if strfind(string.lower(arg1), string.lower(scan)) then
+        return false
+      end
     end
   end
-	ShaguChat_ChatFrame_OnEvent(event);
+  ShaguChat_ChatFrame_OnEvent(event);
 end
 
 SLASH_SHAGUCHAT1, SLASH_SHAGUCHAT2 = "/sc", "/shaguchat"
 SlashCmdList["SHAGUCHAT"] = function(message)
-	local commandlist = { }
-	local command
+  local commandlist = { }
+  local command
 
-	for command in string.gfind(message, "[^ ]+") do
-		table.insert(commandlist, string.lower(command))
-	end
+  for command in string.gfind(message, "[^ ]+") do
+    table.insert(commandlist, string.lower(command))
+  end
 
+  -- add highlight entry
   if commandlist[1] == "hl" then
-		table.insert(ShaguChat_Highlight, string.lower(commandlist[2]))
-    DEFAULT_CHAT_FRAME:AddMessage("=> adding "..commandlist[2].." to your highlight list")
+    local addstring = ""
+    for i=2,10 do
+      if commandlist[i] and commandlist[i] ~= "" then
+        if addstring == "" then
+          addstring = commandlist[i]
+        else
+          addstring = addstring .. " " .. commandlist[i]
+        end
+      end
+    end
+
+    if addstring == "" then return end
+    table.insert(ShaguChat_Highlight, string.lower(addstring))
+    DEFAULT_CHAT_FRAME:AddMessage("=> adding ".. addstring .." to your highlight list")
+
+  -- add block entry
   elseif commandlist[1] == "bl" then
-		table.insert(ShaguChat_Block, string.lower(commandlist[2]))
-    DEFAULT_CHAT_FRAME:AddMessage("=> adding "..commandlist[2] .. " to your block list")
+
+    local addstring = ""
+    for i=2,10 do
+      if commandlist[i] and commandlist[i] ~= "" then
+        if addstring == "" then
+          addstring = commandlist[i]
+        else
+          addstring = addstring .. " " .. commandlist[i]
+        end
+      end
+    end
+
+    if addstring == "" then return end
+    table.insert(ShaguChat_Block, string.lower(addstring))
+    DEFAULT_CHAT_FRAME:AddMessage("=> adding ".. addstring .. " to your block list")
+
+  -- remove entry
   elseif commandlist[1] == "rm" then
     if ShaguChat_Highlight[tonumber(commandlist[2])] ~= nil then
       DEFAULT_CHAT_FRAME:AddMessage("=> removing entry " .. commandlist[2]
-        .. " (" ..  ShaguChat_Highlight[tonumber(commandlist[2])]
+        .. " (" .. ShaguChat_Highlight[tonumber(commandlist[2])]
         .. ") from your highlight list")
 
       table.remove(ShaguChat_Highlight, commandlist[2])
@@ -63,12 +93,12 @@ SlashCmdList["SHAGUCHAT"] = function(message)
     end
   elseif commandlist[1] == "ls" then
     DEFAULT_CHAT_FRAME:AddMessage("|cff33ee33Highlight:")
-		for id, hl in pairs(ShaguChat_Highlight) do
+    for id, hl in pairs(ShaguChat_Highlight) do
       DEFAULT_CHAT_FRAME:AddMessage(" |r[|cff33ee33"..id.."|r] "..hl)
       printID = id
     end
     DEFAULT_CHAT_FRAME:AddMessage("|cffaa3333Block:")
-		for id, hl in pairs(ShaguChat_Block) do
+    for id, hl in pairs(ShaguChat_Block) do
       DEFAULT_CHAT_FRAME:AddMessage(" |r[|cffee3333"..id+printID.."|r] "..hl)
     end
   else
