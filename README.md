@@ -2,7 +2,7 @@
 
 This addon is a chat blocker and notifier. It hides and/or highlights chat messages with specific keywords. Type `/sc` or `/shaguchat` for usage info. Highlighted messages will be colored and also printed to the default Error Frame in the center of the screen
 
-![preview](http://shagu.org/shagucollection/img/ShaguChat.jpg)
+![preview](https://raw.githubusercontent.com/shagu/ShaguAddons/master/_img/ShaguChat/fullscreen.jpg)
 
 ## Installation
 1. Download **[Latest Version](https://github.com/shagu/ShaguChat/archive/master.zip)**
