@@ -1,4 +1,4 @@
-## Interface: 11200
+## Interface: 20400
 ## Title: |cff33ffccShagu|cffffffffChat
 ## Author: Shagu
 ## Notes: Hides and highlights chat messages with specific keywords. Type /sc or /shaguchat for usage info.

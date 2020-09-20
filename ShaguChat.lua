@@ -1,6 +1,6 @@
 if not ShaguChat_Highlight then ShaguChat_Highlight = { "shagu" } end
 if not ShaguChat_Block then ShaguChat_Block = { "cheap gold" } end
-
+local gfind = string.gmatch or string.gfind
 ShaguChat_ChatFrame_OnEvent = ChatFrame_OnEvent
 ShaguChat_OldMessage = ""
 
@@ -37,7 +37,7 @@ SlashCmdList["SHAGUCHAT"] = function(message)
   local commandlist = { }
   local command
 
-  for command in string.gfind(message, "[^ ]+") do
+  for command in gfind(message, "[^ ]+") do
     table.insert(commandlist, string.lower(command))
   end
 
