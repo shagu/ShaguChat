@@ -1,11 +1,13 @@
 if not ShaguChat_Highlight then ShaguChat_Highlight = { "shagu" } end
 if not ShaguChat_Block then ShaguChat_Block = { "cheap gold" } end
 local gfind = string.gmatch or string.gfind
+local popup = nil
+
 ShaguChat_ChatFrame_OnEvent = ChatFrame_OnEvent
-ShaguChat_OldMessage = ""
 
 function ChatFrame_OnEvent(event)
-  local hilight = "|cff33ffcc";
+  local highlight, match = "|cffffdd00", nil
+  local original = arg1
 
   if (event == "CHAT_MSG_CHANNEL" or
     event == "CHAT_MSG_YELL" or
@@ -14,12 +16,19 @@ function ChatFrame_OnEvent(event)
 
     for id, scan in pairs(ShaguChat_Highlight) do
       if strfind(string.lower(arg1), string.lower(scan)) then
-        arg1 = string.gsub(arg1, "|r", hilight)
-        arg1 = hilight..arg1
-        if arg1 ~= ShaguChat_OldMessage then
-          ShaguChat_OldMessage = arg1
-          UIErrorsFrame:AddMessage("|r" .. arg2 .. ": " .. hilight .. arg1)
-        end
+        arg1 = highlight .. string.gsub(arg1, "|r", highlight)
+        match = original ~= arg1 and true or match
+      end
+    end
+
+    if match then
+      -- add text indicators to the match
+      arg1 = "|cff33ffcc!! " .. arg1 .. " |cff33ffcc!!"
+
+      -- show popup on the errors frame
+      if arg1 ~= popup then
+        UIErrorsFrame:AddMessage("|r" .. arg2 .. ": " .. arg1)
+        popup = arg1
       end
     end
 
@@ -29,7 +38,8 @@ function ChatFrame_OnEvent(event)
       end
     end
   end
-  ShaguChat_ChatFrame_OnEvent(event);
+
+  ShaguChat_ChatFrame_OnEvent(event)
 end
 
 SLASH_SHAGUCHAT1, SLASH_SHAGUCHAT2 = "/sc", "/shaguchat"
