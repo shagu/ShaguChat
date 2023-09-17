@@ -83,6 +83,7 @@ SlashCmdList["SHAGUCHAT"] = function(message)
     end
   elseif commandlist[1] == "ls" then
     DEFAULT_CHAT_FRAME:AddMessage("|cff33ee33Highlight:")
+    local printID = 0
     for id, hl in pairs(ShaguChat_Highlight) do
       DEFAULT_CHAT_FRAME:AddMessage(" |r[|cff33ee33"..id.."|r] "..hl)
       printID = id
