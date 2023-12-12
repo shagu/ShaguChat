@@ -13,6 +13,7 @@ function ChatFrame_OnEvent(event)
     event == "CHAT_MSG_YELL" or
     event == "CHAT_MSG_SAY" or
     event == "CHAT_MSG_GUILD" or
+    event == "CHAT_MSG_HARDCORE" or
     event == "CHAT_MSG_WHISPER") and arg2 and arg1 then
 
     for id, scan in pairs(ShaguChat_Highlight) do
