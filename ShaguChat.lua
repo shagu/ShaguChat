@@ -1,5 +1,5 @@
-if not ShaguChat_Highlight then ShaguChat_Highlight = { "shagu" } end
-if not ShaguChat_Block then ShaguChat_Block = { "cheap gold" } end
+if not ShaguChat_Highlight then ShaguChat_Highlight = { } end
+if not ShaguChat_Block then ShaguChat_Block = { } end
 local gfind = string.gmatch or string.gfind
 local popup = nil
 
